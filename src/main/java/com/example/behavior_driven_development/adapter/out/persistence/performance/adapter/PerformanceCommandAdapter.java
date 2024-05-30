@@ -3,6 +3,7 @@ package com.example.behavior_driven_development.adapter.out.persistence.performa
 import com.example.behavior_driven_development.adapter.out.persistence.inventory.InventoryEntity;
 import com.example.behavior_driven_development.adapter.out.persistence.performance.PerformanceEntity;
 import com.example.behavior_driven_development.adapter.out.persistence.reservation.ReservationEntity;
+import com.example.behavior_driven_development.adapter.out.persistence.reservation.ReservationEntityJpaRepository;
 import com.example.behavior_driven_development.application.port.out.PerformanceSavePort;
 import com.example.behavior_driven_development.domain.Inventory;
 import com.example.behavior_driven_development.domain.Reservation;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 @Repository
 @RequiredArgsConstructor
 public class PerformanceCommandAdapter implements PerformanceSavePort {
-    private final PerformanceReserveEntityJpaRepository performanceReserveEntityJpaRepository;
+    private final ReservationEntityJpaRepository reservationEntityJpaRepository;
     private final PerformanceMapper performanceMapper;
 
     @Override
@@ -26,7 +27,7 @@ public class PerformanceCommandAdapter implements PerformanceSavePort {
         LocalDate reserveDate = reservation.getReservationDate();
         ReservationEntity performanceReserveEntity = performanceMapper.toEntity(performanceEntity, customerName, reserveDate);
 
-        ReservationEntity savedPerformanceReserveEntity = performanceReserveEntityJpaRepository.save(performanceReserveEntity);
+        ReservationEntity savedPerformanceReserveEntity = reservationEntityJpaRepository.save(performanceReserveEntity);
         return performanceMapper.toDomain(savedPerformanceReserveEntity);
     }
 

@@ -1,4 +1,4 @@
-package com.example.behavior_driven_development.unit;
+package com.example.behavior_driven_development.reservation.unit;
 
 import com.example.behavior_driven_development.application.port.out.InventorySavePort;
 import com.example.behavior_driven_development.application.port.out.PerformanceFindPort;

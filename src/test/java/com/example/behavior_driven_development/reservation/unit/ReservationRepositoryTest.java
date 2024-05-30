@@ -1,4 +1,4 @@
-package com.example.behavior_driven_development.unit;
+package com.example.behavior_driven_development.reservation.unit;
 
 import com.example.behavior_driven_development.adapter.out.persistence.inventory.repository.InventoryEntityJpaRepository;
 import com.example.behavior_driven_development.adapter.out.persistence.performance.PerformanceEntity;
