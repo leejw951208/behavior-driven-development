@@ -1,4 +1,4 @@
-package com.example.behavior_driven_development.adapter.out.persistence;
+package com.example.behavior_driven_development.adapter.out.persistence.performance;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

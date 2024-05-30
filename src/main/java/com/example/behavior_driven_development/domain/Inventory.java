@@ -11,8 +11,12 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PerformanceReservable {
-    private long performanceId;
-    private String customerName;
-    private LocalDate reservableDate;
+public class Inventory {
+    private long inventoryId;
+    private int quantity;
+    private LocalDate reservationDate;
+
+    public void decreaseQuantity() {
+        this.quantity -= 1;
+    }
 }

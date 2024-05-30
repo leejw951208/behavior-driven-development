@@ -1,4 +1,4 @@
 package com.example.behavior_driven_development.unit;
 
-public class PerformanceControllerTest {
+public class ReservationControllerTest {
 }

@@ -1,5 +1,6 @@
-package com.example.behavior_driven_development.adapter.out.persistence;
+package com.example.behavior_driven_development.adapter.out.persistence.inventory;
 
+import com.example.behavior_driven_development.adapter.out.persistence.performance.PerformanceEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,9 +16,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "t_performance_inventory")
+@Table(name = "t_inventory", uniqueConstraints = {
+        @UniqueConstraint(
+                name="contstraint",
+                columnNames={"performance_id", "reservable_date"}
+        )
+})
 @Entity
-public class PerformanceInventoryEntity {
+public class InventoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,6 +36,10 @@ public class PerformanceInventoryEntity {
     @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "reservable_date", nullable = false, unique = true)
-    private LocalDate reservableDate;
+    @Column(name = "reservable_date", nullable = false)
+    private LocalDate reservationDate;
+
+    public void decreaseQuantity() {
+        this.quantity =- 1;
+    }
 }

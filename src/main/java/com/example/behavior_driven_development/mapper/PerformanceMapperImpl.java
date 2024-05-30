@@ -1,11 +1,12 @@
 package com.example.behavior_driven_development.mapper;
 
-import com.example.behavior_driven_development.adapter.out.persistence.PerformanceEntity;
-import com.example.behavior_driven_development.adapter.out.persistence.PerformanceReserveEntity;
+import com.example.behavior_driven_development.adapter.out.persistence.reservation.ReservationEntity;
+import com.example.behavior_driven_development.adapter.out.persistence.inventory.InventoryEntity;
+import com.example.behavior_driven_development.adapter.out.persistence.performance.PerformanceEntity;
+import com.example.behavior_driven_development.domain.Inventory;
 import com.example.behavior_driven_development.domain.Performance;
-import com.example.behavior_driven_development.domain.PerformanceReservable;
-import com.example.behavior_driven_development.domain.PerformanceReserve;
-import com.example.behavior_driven_development.domain.PerformanceReserved;
+import com.example.behavior_driven_development.domain.Reservation;
+import com.example.behavior_driven_development.domain.Reserved;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -15,46 +16,55 @@ public class PerformanceMapperImpl implements PerformanceMapper {
     @Override
     public Performance toDomain(PerformanceEntity performanceEntity) {
         return Performance.builder()
-                .id(performanceEntity.getId())
+                .performanceId(performanceEntity.getId())
                 .performanceName(performanceEntity.getPerformanceName())
                 .createdDate(performanceEntity.getCreatedDate())
                 .build();
     }
 
     @Override
-    public PerformanceReserve toDomain(Performance performance, String customerName, LocalDate reserveDate) {
-        return PerformanceReserve.builder()
+    public Reservation toDomain(Performance performance, String customerName, LocalDate reserveDate) {
+        return Reservation.builder()
                 .performance(performance)
                 .customerName(customerName)
-                .reserveDate(reserveDate)
+                .reservationDate(reserveDate)
                 .build();
     }
 
     @Override
-    public PerformanceReserved toDomain(PerformanceReserveEntity performanceReserveEntity) {
-        return PerformanceReserved.builder()
+    public Reserved toDomain(ReservationEntity performanceReserveEntity) {
+        return Reserved.builder()
                 .performanceId(performanceReserveEntity.getPerformanceEntity().getId())
                 .performanceName(performanceReserveEntity.getPerformanceEntity().getPerformanceName())
                 .customerName(performanceReserveEntity.getCustomerName())
-                .reservedDate(performanceReserveEntity.getReservedDate())
+                .reservationDate(performanceReserveEntity.getReservationDate())
                 .build();
     }
 
     @Override
-    public PerformanceReserveEntity toEntity(PerformanceEntity performanceEntity, String customerName, LocalDate reserveDate) {
-        return PerformanceReserveEntity.builder()
+    public ReservationEntity toEntity(PerformanceEntity performanceEntity, String customerName, LocalDate reserveDate) {
+        return ReservationEntity.builder()
                 .performanceEntity(performanceEntity)
                 .customerName(customerName)
-                .reservedDate(reserveDate)
+                .reservationDate(reserveDate)
                 .build();
     }
 
     @Override
     public PerformanceEntity toEntity(Performance performance) {
         return PerformanceEntity.builder()
-                .id(performance.getId())
+                .id(performance.getPerformanceId())
                 .performanceName(performance.getPerformanceName())
                 .createdDate(performance.getCreatedDate())
+                .build();
+    }
+
+    @Override
+    public InventoryEntity toEntity(Inventory inventory) {
+        return InventoryEntity.builder()
+                .id(inventory.getInventoryId())
+                .quantity(inventory.getQuantity())
+                .reservationDate(inventory.getReservationDate())
                 .build();
     }
 }

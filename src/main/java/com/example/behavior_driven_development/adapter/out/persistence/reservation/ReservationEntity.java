@@ -1,10 +1,8 @@
-package com.example.behavior_driven_development.adapter.out.persistence;
+package com.example.behavior_driven_development.adapter.out.persistence.reservation;
 
+import com.example.behavior_driven_development.adapter.out.persistence.performance.PerformanceEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
@@ -13,10 +11,11 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "t_performance_reserve")
+@Table(name = "t_reservation_info")
 @Entity
-public class PerformanceReserveEntity {
+public class ReservationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +27,6 @@ public class PerformanceReserveEntity {
     @Column(name = "customer_name", nullable = false)
     private String customerName;
 
-    @Column(name = "reserved_date", nullable = false)
-    private LocalDate reservedDate;
+    @Column(name = "reservation_date", nullable = false)
+    private LocalDate reservationDate;
 }

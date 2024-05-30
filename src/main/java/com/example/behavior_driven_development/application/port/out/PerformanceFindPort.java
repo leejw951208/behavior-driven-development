@@ -1,10 +1,11 @@
 package com.example.behavior_driven_development.application.port.out;
 
 import com.example.behavior_driven_development.domain.Performance;
-import com.example.behavior_driven_development.domain.PerformanceReservable;
+import com.example.behavior_driven_development.domain.Inventory;
+import com.example.behavior_driven_development.domain.PerformanceInventory;
 
 import java.time.LocalDate;
 
 public interface PerformanceFindPort {
-    Performance findReservable(long performanceId, LocalDate reservableDate);
+    PerformanceInventory findByIdAndReservationDate(long performanceId, LocalDate reservationDate);
 }

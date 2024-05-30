@@ -1,9 +1,10 @@
 package com.example.behavior_driven_development.application.port.out;
 
-import com.example.behavior_driven_development.domain.PerformanceReservable;
-import com.example.behavior_driven_development.domain.PerformanceReserve;
-import com.example.behavior_driven_development.domain.PerformanceReserved;
+import com.example.behavior_driven_development.domain.Inventory;
+import com.example.behavior_driven_development.domain.Reservation;
+import com.example.behavior_driven_development.domain.Reserved;
 
 public interface PerformanceSavePort {
-    PerformanceReserved savePerformanceReserve(PerformanceReserve performanceReserve);
+    Reserved saveReservation(Reservation reservation);
+    void updateInventory(Inventory inventory);
 }
