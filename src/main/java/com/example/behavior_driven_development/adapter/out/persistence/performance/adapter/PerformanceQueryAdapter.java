@@ -1,11 +1,8 @@
 package com.example.behavior_driven_development.adapter.out.persistence.performance.adapter;
 
 import com.example.behavior_driven_development.adapter.out.persistence.performance.repository.PerformanceEntityRepository;
-import com.example.behavior_driven_development.application.port.out.PerformanceFindPort;
-import com.example.behavior_driven_development.domain.Performance;
-import com.example.behavior_driven_development.domain.Inventory;
+import com.example.behavior_driven_development.application.port.out.PerformanceFindOutPort;
 import com.example.behavior_driven_development.domain.PerformanceInventory;
-import com.example.behavior_driven_development.mapper.PerformanceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +11,7 @@ import java.util.NoSuchElementException;
 
 @Repository
 @RequiredArgsConstructor
-public class PerformanceQueryAdapter implements PerformanceFindPort {
+public class PerformanceQueryAdapter implements PerformanceFindOutPort {
     private final PerformanceEntityRepository performanceEntityRepository;
 
     @Override

@@ -71,23 +71,4 @@ public class ReservationRepositoryTest extends BaseTest {
         assertNotNull(savedPerformanceReserveEntity);
         assertEquals(createdPerformanceReserve, savedPerformanceReserveEntity);
     }
-
-    @Test
-    @DisplayName("리포지토리 단위 테스트: 공연 예약 실패")
-    public void reservePerformanceFailed() {
-        // given
-        PerformanceEntity savedPerformanceEntity = performanceEntityJpaRepository.save(PerformanceEntity.builder().performanceName("홍길동전").build());
-
-        InventoryEntity createdInventoryEntity = InventoryEntity.builder()
-                .performanceEntity(savedPerformanceEntity)
-                .quantity(0)
-                .reservationDate(date)
-                .build();
-        inventoryEntityJpaRepository.save(createdInventoryEntity);
-
-        // when
-        Throwable throwable = catchThrowable(() -> performanceEntityRepository.findByIdAndReservationDate(1L, date));
-
-        // then
-    }
 }

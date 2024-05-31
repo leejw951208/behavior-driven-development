@@ -1,5 +1,6 @@
 package com.example.behavior_driven_development.mapper;
 
+import com.example.behavior_driven_development.adapter.in.web.dto.ReservationResponseDto;
 import com.example.behavior_driven_development.adapter.out.persistence.performance.PerformanceEntity;
 import com.example.behavior_driven_development.adapter.out.persistence.reservation.ReservationEntity;
 import com.example.behavior_driven_development.domain.Reserved;
@@ -26,5 +27,15 @@ public class ReservationMapperImpl implements ReservationMapper {
                 .customerName(reservationEntity.getCustomerName())
                 .reservationDate(reservationEntity.getReservationDate())
                 .build();
+    }
+
+    @Override
+    public ReservationResponseDto toDto(Reserved reserved) {
+        return new ReservationResponseDto(
+                reserved.getPerformanceId(),
+                reserved.getPerformanceName(),
+                reserved.getCustomerName(),
+                reserved.getReservationDate()
+        );
     }
 }

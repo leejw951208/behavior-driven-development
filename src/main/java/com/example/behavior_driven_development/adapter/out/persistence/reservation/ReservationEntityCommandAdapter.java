@@ -1,7 +1,7 @@
 package com.example.behavior_driven_development.adapter.out.persistence.reservation;
 
 import com.example.behavior_driven_development.adapter.out.persistence.performance.PerformanceEntity;
-import com.example.behavior_driven_development.application.port.out.ReservationSavePort;
+import com.example.behavior_driven_development.application.port.out.ReservationSaveOutPort;
 import com.example.behavior_driven_development.domain.Reservation;
 import com.example.behavior_driven_development.domain.Reserved;
 import com.example.behavior_driven_development.mapper.PerformanceMapper;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class ReservationEntityCommandAdapter implements ReservationSavePort {
+public class ReservationEntityCommandAdapter implements ReservationSaveOutPort {
     private final ReservationEntityJpaRepository reservationEntityJpaRepository;
     private final PerformanceMapper performanceMapper;
     private final ReservationMapper reservationMapper;
