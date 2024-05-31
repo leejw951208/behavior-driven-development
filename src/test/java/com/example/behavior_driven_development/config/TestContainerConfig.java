@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 
 @Configuration
 public class TestContainerConfig {
-    private static final MySQLContainer<?> MY_SQL_CONTAINER;
+    /*private static final MySQLContainer<?> MY_SQL_CONTAINER;
 
     static {
         MY_SQL_CONTAINER = new MySQLContainer<>("mysql:8")
@@ -32,5 +32,5 @@ public class TestContainerConfig {
                 .username(MY_SQL_CONTAINER.getUsername())
                 .password(MY_SQL_CONTAINER.getPassword())
                 .build();
-    }
+    }*/
 }
