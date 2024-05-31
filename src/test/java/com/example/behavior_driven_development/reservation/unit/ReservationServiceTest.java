@@ -94,6 +94,6 @@ public class ReservationServiceTest extends BaseTest {
                 , () -> reservationService.reserve(requestDto));
 
         // then
-        assertEquals(ex.getMessage(), "예약이 마감된 공연 입니다.");
+        assertEquals(ex.getMessage(), "공연 예약이 마감되었습니다.");
     }
 }
