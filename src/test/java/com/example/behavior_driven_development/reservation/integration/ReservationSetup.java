@@ -26,12 +26,12 @@ public class ReservationSetup {
         return performanceEntityJpaRepository.save(performanceEntity);
     }
 
-    public void saveInventory(PerformanceEntity performanceEntity, LocalDate reservationDate, int quantity) {
+    public InventoryEntity saveInventory(PerformanceEntity performanceEntity, LocalDate reservationDate, int quantity) {
         InventoryEntity inventoryEntity = InventoryEntity.builder()
                 .performanceEntity(performanceEntity)
                 .quantity(quantity)
                 .reservationDate(reservationDate)
                 .build();
-        inventoryEntityJpaRepository.save(inventoryEntity);
+        return inventoryEntityJpaRepository.save(inventoryEntity);
     }
 }

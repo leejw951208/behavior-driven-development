@@ -18,6 +18,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class ReservationUseCase implements ReservationInPort {
     private final PerformanceFindOutPort performanceFindPort;
+    private final InventoryFindOutPort inventoryFindOutPort;
     private final InventorySaveOutPort inventorySavePort;
     private final ReservationSaveOutPort reservationSavePort;
     private final PerformanceMapper performanceMapper;
@@ -29,16 +30,16 @@ public class ReservationUseCase implements ReservationInPort {
         String customerName = requestDto.customerName();
         LocalDate reservationDate = requestDto.reservationDate();
 
-        PerformanceInventory performanceInventory = performanceFindPort.findByIdAndReservationDate(performanceId, reservationDate);
-        if (performanceInventory.getInventory().getQuantity() == 0) {
+        Inventory findInventory = inventoryFindOutPort.findInventory(performanceId, reservationDate);
+        if (findInventory.getQuantity() == 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "공연 예약이 마감되었습니다.");
         }
+        findInventory.decreaseQuantity();
 
-        Inventory inventory = performanceInventory.getInventory();
-        inventory.decreaseQuantity();
-        inventorySavePort.updateInventory(inventory);
+        Performance findPerformance = performanceFindPort.findPerformance(performanceId);
+        inventorySavePort.updateInventory(findInventory, findPerformance);
 
-        Reservation reservation = performanceMapper.toDomain(performanceInventory.getPerformance(), customerName, reservationDate);
+        Reservation reservation = performanceMapper.toDomain(findPerformance, customerName, reservationDate);
         return reservationSavePort.save(reservation);
     }
 }

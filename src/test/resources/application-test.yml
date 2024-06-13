@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     url: jdbc:tc:mysql:8:///reservation
-    username: username
-    password: password
+    username: root
+    password:
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -11,4 +11,4 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect

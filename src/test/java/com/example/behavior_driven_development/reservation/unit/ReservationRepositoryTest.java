@@ -14,8 +14,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
@@ -25,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.then;
 
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(value = {JpaAuditingConfig.class, TestQueryDslConfig.class})
 public class ReservationRepositoryTest extends BaseTest {
     @Autowired
@@ -57,7 +61,7 @@ public class ReservationRepositoryTest extends BaseTest {
 
         // when
         PerformanceEntity findPerformance = performanceEntityRepository.findById(1L)
-                .orElseThrow(() -> new NoSuchElementException("공연 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "공연 정보를 찾을 수 없습니다."));
 
         ReservationEntity createdPerformanceReserve = ReservationEntity.builder()
                 .performanceEntity(findPerformance)

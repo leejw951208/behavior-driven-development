@@ -2,6 +2,7 @@ package com.example.behavior_driven_development.reservation.unit;
 
 import com.example.behavior_driven_development.adapter.in.web.dto.ReservationRequestDto;
 import com.example.behavior_driven_development.adapter.in.web.dto.ReservationResponseDto;
+import com.example.behavior_driven_development.application.port.out.InventoryFindOutPort;
 import com.example.behavior_driven_development.application.port.out.InventorySaveOutPort;
 import com.example.behavior_driven_development.application.port.out.PerformanceFindOutPort;
 import com.example.behavior_driven_development.application.port.out.ReservationSaveOutPort;
@@ -15,9 +16,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
@@ -25,6 +29,9 @@ import static org.mockito.BDDMockito.*;
 public class ReservationServiceTest extends BaseTest {
     @Mock
     private PerformanceFindOutPort performanceFindPort;
+
+    @Mock
+    private InventoryFindOutPort inventoryFindOutPort;
 
     @Mock
     private InventorySaveOutPort inventorySavePort;
@@ -38,7 +45,7 @@ public class ReservationServiceTest extends BaseTest {
     @InjectMocks
     private ReservationUseCase reservationService;
 
-    private static final LocalDate date = LocalDate.of(2024, 5, 30);
+    private static final LocalDate date = LocalDate.now();
 
     @Test
     @DisplayName("서비스 단위 테스트: 공연 예약")
@@ -51,12 +58,12 @@ public class ReservationServiceTest extends BaseTest {
         ReservationRequestDto requestDto = new ReservationRequestDto(performanceId, customerName, reservationDate);
         Performance performance = Performance.builder().performanceId(performanceId).performanceName("홍길동전").createdDate(date).build();
         Inventory inventory = Inventory.builder().inventoryId(performanceId).quantity(1).reservationDate(date).build();
-        PerformanceInventory performanceInventory = PerformanceInventory.builder().performance(performance).inventory(inventory).build();
         Reservation reservation = Reservation.builder().performance(performance).customerName(customerName).reservationDate(date).build();
         Reserved reserved = Reserved.builder().performanceId(performanceId).performanceName("홍길동전").customerName(customerName).reservationDate(date).build();
 
-        given(performanceFindPort.findByIdAndReservationDate(performanceId, reservationDate)).willReturn(performanceInventory);
-        willDoNothing().given(inventorySavePort).updateInventory(inventory);
+        given(inventoryFindOutPort.findInventory(performanceId, reservationDate)).willReturn(inventory);
+        given(performanceFindPort.findPerformance(performanceId)).willReturn(performance);
+        willDoNothing().given(inventorySavePort).updateInventory(inventory, performance);
         given(performanceMapper.toDomain(performance, customerName, reservationDate)).willReturn(reservation);
         given(reservationSavePort.save(reservation)).willReturn(reserved);
 
@@ -64,11 +71,6 @@ public class ReservationServiceTest extends BaseTest {
         Reserved response = reservationService.reserve(requestDto);
 
         // then
-        then(performanceFindPort).should(times(1)).findByIdAndReservationDate(performanceId, reservationDate);
-        then(inventorySavePort).should(times(1)).updateInventory(inventory);
-        then(performanceMapper).should(times(1)).toDomain(performance, customerName, reservationDate);
-        then(reservationSavePort).should(times(1)).save(reservation);
-
         assertNotNull(response);
         assertEquals(response, reserved);
         assertEquals(inventory.getQuantity(), 0);
@@ -83,17 +85,15 @@ public class ReservationServiceTest extends BaseTest {
         LocalDate reservationDate = date;
 
         ReservationRequestDto requestDto = new ReservationRequestDto(performanceId, customerName, reservationDate);
-        Performance performance = Performance.builder().performanceId(performanceId).performanceName("홍길동전").createdDate(date).build();
         Inventory inventory = Inventory.builder().inventoryId(performanceId).quantity(0).reservationDate(date).build();
-        PerformanceInventory performanceInventory = PerformanceInventory.builder().performance(performance).inventory(inventory).build();
 
-        given(performanceFindPort.findByIdAndReservationDate(performanceId, reservationDate)).willReturn(performanceInventory);
+        given(inventoryFindOutPort.findInventory(performanceId, reservationDate)).willReturn(inventory);
 
         // when
-        RuntimeException ex = assertThrows(RuntimeException.class
-                , () -> reservationService.reserve(requestDto));
+        Throwable throwable = catchThrowable(() -> reservationService.reserve(requestDto));
 
         // then
-        assertEquals(ex.getMessage(), "공연 예약이 마감되었습니다.");
+        assertThat(throwable).isInstanceOf(ResponseStatusException.class)
+                .hasMessageContaining("공연 예약이 마감되었습니다.");
     }
 }
