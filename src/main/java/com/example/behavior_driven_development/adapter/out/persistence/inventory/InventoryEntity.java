@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @Table(name = "t_inventory", uniqueConstraints = {
         @UniqueConstraint(
                 name="contstraint",
-                columnNames={"performance_id", "reservable_date"}
+                columnNames={"performance_id", "reservation_date"}
         )
 })
 @Entity
@@ -36,10 +36,6 @@ public class InventoryEntity {
     @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "reservable_date", nullable = false)
+    @Column(name = "reservation_date", nullable = false)
     private LocalDate reservationDate;
-
-    public void decreaseQuantity() {
-        this.quantity =- 1;
-    }
 }

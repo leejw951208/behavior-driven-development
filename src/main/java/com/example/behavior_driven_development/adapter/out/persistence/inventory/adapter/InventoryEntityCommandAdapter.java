@@ -22,6 +22,17 @@ public class InventoryEntityCommandAdapter implements InventorySaveOutPort {
     public void updateInventory(Inventory inventory, Performance performance) {
         PerformanceEntity performanceEntity = performanceMapper.toEntity(performance);
         InventoryEntity inventoryEntity = inventoryMapper.toEntity(inventory, performanceEntity);
-        inventoryEntityJpaRepository.saveAndFlush(inventoryEntity);
+        inventoryEntityJpaRepository.save(inventoryEntity);
+    }
+
+    @Override
+    public void save(int quantity, Performance performance) {
+        PerformanceEntity performanceEntity = performanceMapper.toEntity(performance);
+        InventoryEntity inventoryEntity = InventoryEntity.builder()
+                .performanceEntity(performanceEntity)
+                .reservationDate(performance.getCreatedDate())
+                .quantity(quantity)
+                .build();
+        inventoryEntityJpaRepository.save(inventoryEntity);
     }
 }

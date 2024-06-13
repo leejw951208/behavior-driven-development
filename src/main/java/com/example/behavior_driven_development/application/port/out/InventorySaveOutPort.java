@@ -5,4 +5,5 @@ import com.example.behavior_driven_development.domain.Performance;
 
 public interface InventorySaveOutPort {
     void updateInventory(Inventory inventory, Performance performance);
+    void save(int quantity, Performance performance);
 }

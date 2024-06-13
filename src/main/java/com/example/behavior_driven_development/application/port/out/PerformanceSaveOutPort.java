@@ -5,6 +5,5 @@ import com.example.behavior_driven_development.domain.Reservation;
 import com.example.behavior_driven_development.domain.Reserved;
 
 public interface PerformanceSaveOutPort {
-    Reserved saveReservation(Reservation reservation);
-    void updateInventory(Inventory inventory);
+    void save(String performanceName);
 }
