@@ -1,14 +1,16 @@
 package com.example.behavior_driven_development.mapper;
 
-import com.example.behavior_driven_development.adapter.in.web.dto.ReservationResponseDto;
-import com.example.behavior_driven_development.adapter.out.persistence.performance.PerformanceEntity;
-import com.example.behavior_driven_development.adapter.out.persistence.reservation.ReservationEntity;
-import com.example.behavior_driven_development.domain.Reserved;
+import com.example.behavior_driven_development.domain.ReservationSave;
+import com.example.behavior_driven_development.dto.ReservationResponseDto;
+import com.example.behavior_driven_development.persistence.performance.PerformanceEntity;
+import com.example.behavior_driven_development.persistence.reservation.ReservationEntity;
+import com.example.behavior_driven_development.domain.Reservation;
 
 import java.time.LocalDate;
 
 public interface ReservationMapper {
-    ReservationEntity toEntity(PerformanceEntity performanceEntity, String customerName, LocalDate reservationDate);
-    Reserved toDomain(ReservationEntity reservationEntity);
-    ReservationResponseDto toDto(Reserved reserved);
+    ReservationEntity toEntity(PerformanceEntity performanceEntity, ReservationSave reservationSave);
+    Reservation toDomain(ReservationEntity reservationEntity);
+    ReservationSave toDomain(String customerName, LocalDate reservationDate);
+    ReservationResponseDto toDto(Reservation reservation);
 }

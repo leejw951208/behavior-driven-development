@@ -1,9 +1,10 @@
 package com.example.behavior_driven_development.mapper;
 
-import com.example.behavior_driven_development.adapter.in.web.dto.ReservationResponseDto;
-import com.example.behavior_driven_development.adapter.out.persistence.performance.PerformanceEntity;
-import com.example.behavior_driven_development.adapter.out.persistence.reservation.ReservationEntity;
-import com.example.behavior_driven_development.domain.Reserved;
+import com.example.behavior_driven_development.domain.ReservationSave;
+import com.example.behavior_driven_development.dto.ReservationResponseDto;
+import com.example.behavior_driven_development.persistence.performance.PerformanceEntity;
+import com.example.behavior_driven_development.persistence.reservation.ReservationEntity;
+import com.example.behavior_driven_development.domain.Reservation;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -11,31 +12,34 @@ import java.time.LocalDate;
 @Component
 public class ReservationMapperImpl implements ReservationMapper {
     @Override
-    public ReservationEntity toEntity(PerformanceEntity performanceEntity, String customerName, LocalDate reservationDate) {
+    public ReservationEntity toEntity(PerformanceEntity performanceEntity, ReservationSave reservationSave) {
         return ReservationEntity.builder()
                 .performanceEntity(performanceEntity)
-                .customerName(customerName)
-                .reservationDate(reservationDate)
+                .customerName(reservationSave.getCustomerName())
+                .reservationDate(reservationSave.getReservationDate())
                 .build();
     }
 
     @Override
-    public Reserved toDomain(ReservationEntity reservationEntity) {
-        return Reserved.builder()
-                .performanceId(reservationEntity.getPerformanceEntity().getId())
-                .performanceName(reservationEntity.getPerformanceEntity().getPerformanceName())
-                .customerName(reservationEntity.getCustomerName())
-                .reservationDate(reservationEntity.getReservationDate())
-                .build();
+    public Reservation toDomain(ReservationEntity reservationEntity) {
+        return new Reservation(
+                reservationEntity.getPerformanceEntity().getId(),
+                reservationEntity.getPerformanceEntity().getPerformanceName(),
+                reservationEntity.getReservationDate()
+        );
     }
 
     @Override
-    public ReservationResponseDto toDto(Reserved reserved) {
+    public ReservationSave toDomain(String customerName, LocalDate reservationDate) {
+        return new ReservationSave(customerName, reservationDate);
+    }
+
+    @Override
+    public ReservationResponseDto toDto(Reservation reservation) {
         return new ReservationResponseDto(
-                reserved.getPerformanceId(),
-                reserved.getPerformanceName(),
-                reserved.getCustomerName(),
-                reserved.getReservationDate()
+                reservation.getPerformanceId(),
+                reservation.getPerformanceName(),
+                reservation.getReservationDate()
         );
     }
 }

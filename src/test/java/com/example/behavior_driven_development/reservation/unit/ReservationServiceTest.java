@@ -1,15 +1,14 @@
 package com.example.behavior_driven_development.reservation.unit;
 
-import com.example.behavior_driven_development.adapter.in.web.dto.ReservationRequestDto;
-import com.example.behavior_driven_development.adapter.in.web.dto.ReservationResponseDto;
-import com.example.behavior_driven_development.application.port.out.InventoryFindOutPort;
-import com.example.behavior_driven_development.application.port.out.InventorySaveOutPort;
-import com.example.behavior_driven_development.application.port.out.PerformanceFindOutPort;
-import com.example.behavior_driven_development.application.port.out.ReservationSaveOutPort;
-import com.example.behavior_driven_development.application.service.ReservationUseCase;
+import com.example.behavior_driven_development.dto.ReservationResponseDto;
+import com.example.behavior_driven_development.dto.ReservationSaveRequestDto;
+import com.example.behavior_driven_development.mapper.ReservationMapper;
+import com.example.behavior_driven_development.repository.InventoryRepository;
+import com.example.behavior_driven_development.repository.PerformanceRepository;
+import com.example.behavior_driven_development.repository.ReservationRepository;
+import com.example.behavior_driven_development.service.impl.ReservationServiceImpl;
 import com.example.behavior_driven_development.base.BaseTest;
 import com.example.behavior_driven_development.domain.*;
-import com.example.behavior_driven_development.mapper.PerformanceMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,56 +23,59 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.BDDAssertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
+import static org.testcontainers.shaded.org.bouncycastle.oer.its.ieee1609dot2.HashedData.reserved;
 
 @ExtendWith(MockitoExtension.class)
 public class ReservationServiceTest extends BaseTest {
     @Mock
-    private PerformanceFindOutPort performanceFindPort;
+    private PerformanceRepository performanceRepository;
 
     @Mock
-    private InventoryFindOutPort inventoryFindOutPort;
+    private InventoryRepository inventoryRepository;
 
     @Mock
-    private InventorySaveOutPort inventorySavePort;
+    private ReservationRepository reservationRepository;
 
     @Mock
-    private ReservationSaveOutPort reservationSavePort;
-
-    @Mock
-    private PerformanceMapper performanceMapper;
+    private ReservationMapper reservationMapper;
 
     @InjectMocks
-    private ReservationUseCase reservationService;
-
-    private static final LocalDate date = LocalDate.now();
+    private ReservationServiceImpl reservationService;
 
     @Test
     @DisplayName("서비스 단위 테스트: 공연 예약")
-    public void reservePerformance() {
+    public void saveReservation() {
         // given
-        long performanceId = 1L;
         String customerName = "고길동";
-        LocalDate reservationDate = date;
+        LocalDate reservationDate = LocalDate.now();
+        ReservationSaveRequestDto requestDto = new ReservationSaveRequestDto(customerName, reservationDate);
 
-        ReservationRequestDto requestDto = new ReservationRequestDto(performanceId, customerName, reservationDate);
-        Performance performance = Performance.builder().performanceId(performanceId).performanceName("홍길동전").createdDate(date).build();
-        Inventory inventory = Inventory.builder().inventoryId(performanceId).quantity(1).reservationDate(date).build();
-        Reservation reservation = Reservation.builder().performance(performance).customerName(customerName).reservationDate(date).build();
-        Reserved reserved = Reserved.builder().performanceId(performanceId).performanceName("홍길동전").customerName(customerName).reservationDate(date).build();
+        long inventoryId = 1L;
+        int quantity = 1;
+        Inventory inventory = new Inventory(inventoryId, quantity, reservationDate);
 
-        given(inventoryFindOutPort.findInventory(performanceId, reservationDate)).willReturn(inventory);
-        given(performanceFindPort.findPerformance(performanceId)).willReturn(performance);
-        willDoNothing().given(inventorySavePort).updateInventory(inventory, performance);
-        given(performanceMapper.toDomain(performance, customerName, reservationDate)).willReturn(reservation);
-        given(reservationSavePort.save(reservation)).willReturn(reserved);
+        long performanceId = 1L;
+        String performanceName = "홍길동전";
+        Performance performance = new Performance(performanceId, performanceName, LocalDate.now());
+
+        ReservationSave reservationSave = new ReservationSave(customerName, reservationDate);
+        Reservation reservation = new Reservation(performanceId, performanceName, reservationDate);
+        ReservationResponseDto responseDto = new ReservationResponseDto(performanceId, performanceName, reservationDate);
+
+        given(inventoryRepository.findInventory(performanceId, reservationDate)).willReturn(inventory);
+        given(performanceRepository.findPerformance(performanceId)).willReturn(performance);
+        willDoNothing().given(inventoryRepository).save(performance, inventory);
+        given(reservationMapper.toDomain(customerName, reservationDate)).willReturn(reservationSave);
+        given(reservationRepository.save(performance, reservationSave)).willReturn(reservation);
+        given(reservationMapper.toDto(reservation)).willReturn(responseDto);
 
         // when
-        Reserved response = reservationService.reserve(requestDto);
+        ReservationResponseDto result = reservationService.saveReservation(performanceId, requestDto);
 
         // then
-        assertNotNull(response);
-        assertEquals(response, reserved);
-        assertEquals(inventory.getQuantity(), 0);
+        assertNotNull(result);
+        assertEquals(responseDto, result);
+        assertEquals(inventory.getQuantity(), quantity - 1);
     }
 
     @Test
@@ -82,18 +84,19 @@ public class ReservationServiceTest extends BaseTest {
         // given
         long performanceId = 1L;
         String customerName = "고길동";
-        LocalDate reservationDate = date;
+        LocalDate reservationDate = LocalDate.now();
+        int quantity = 0;
 
-        ReservationRequestDto requestDto = new ReservationRequestDto(performanceId, customerName, reservationDate);
-        Inventory inventory = Inventory.builder().inventoryId(performanceId).quantity(0).reservationDate(date).build();
+        ReservationSaveRequestDto requestDto = new ReservationSaveRequestDto(customerName, reservationDate);
+        Inventory inventory = Inventory.builder().inventoryId(performanceId).quantity(quantity).reservationDate(reservationDate).build();
 
-        given(inventoryFindOutPort.findInventory(performanceId, reservationDate)).willReturn(inventory);
+        given(inventoryRepository.findInventory(performanceId, reservationDate)).willReturn(inventory);
 
         // when
-        Throwable throwable = catchThrowable(() -> reservationService.reserve(requestDto));
+        Throwable throwable = catchThrowable(() -> reservationService.saveReservation(performanceId, requestDto));
 
         // then
         assertThat(throwable).isInstanceOf(ResponseStatusException.class)
-                .hasMessageContaining("공연 예약이 마감되었습니다.");
+                .hasMessageContaining("이미 예약이 마감되었습니다.");
     }
 }
