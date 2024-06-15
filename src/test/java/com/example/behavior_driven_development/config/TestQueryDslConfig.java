@@ -1,7 +1,7 @@
 package com.example.behavior_driven_development.config;
 
-import com.example.behavior_driven_development.persistence.performance.repository.PerformanceEntityRepository;
-import com.example.behavior_driven_development.persistence.performance.repository.PerformanceEntityRepositoryImpl;
+import com.example.behavior_driven_development.reservation.persistence.performance.repository.PerformanceEntityRepository;
+import com.example.behavior_driven_development.reservation.persistence.performance.repository.PerformanceEntityRepositoryImpl;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

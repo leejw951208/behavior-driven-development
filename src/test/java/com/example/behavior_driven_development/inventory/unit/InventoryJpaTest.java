@@ -1,11 +1,10 @@
 package com.example.behavior_driven_development.inventory.unit;
 
 import com.example.behavior_driven_development.base.BaseUnitDatabaseTest;
-import com.example.behavior_driven_development.persistence.inventory.InventoryEntity;
-import com.example.behavior_driven_development.persistence.inventory.repository.InventoryEntityJpaRepository;
-import com.example.behavior_driven_development.persistence.performance.PerformanceEntity;
-import com.example.behavior_driven_development.persistence.performance.repository.PerformanceEntityJpaRepository;
-import org.junit.jupiter.api.Assertions;
+import com.example.behavior_driven_development.reservation.persistence.inventory.InventoryEntity;
+import com.example.behavior_driven_development.reservation.persistence.inventory.repository.InventoryEntityJpaRepository;
+import com.example.behavior_driven_development.reservation.persistence.performance.PerformanceEntity;
+import com.example.behavior_driven_development.reservation.persistence.performance.repository.PerformanceEntityJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

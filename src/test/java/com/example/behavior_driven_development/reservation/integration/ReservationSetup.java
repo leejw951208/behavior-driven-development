@@ -1,9 +1,9 @@
 package com.example.behavior_driven_development.reservation.integration;
 
-import com.example.behavior_driven_development.persistence.inventory.InventoryEntity;
-import com.example.behavior_driven_development.persistence.inventory.repository.InventoryEntityJpaRepository;
-import com.example.behavior_driven_development.persistence.performance.PerformanceEntity;
-import com.example.behavior_driven_development.persistence.performance.repository.PerformanceEntityJpaRepository;
+import com.example.behavior_driven_development.reservation.persistence.inventory.InventoryEntity;
+import com.example.behavior_driven_development.reservation.persistence.inventory.repository.InventoryEntityJpaRepository;
+import com.example.behavior_driven_development.reservation.persistence.performance.PerformanceEntity;
+import com.example.behavior_driven_development.reservation.persistence.performance.repository.PerformanceEntityJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

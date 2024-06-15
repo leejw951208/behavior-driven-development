@@ -1,10 +1,9 @@
 package com.example.behavior_driven_development.performance.integration;
 
 import com.example.behavior_driven_development.base.BaseIntegrationTest;
-import com.example.behavior_driven_development.dto.PerformanceRequestDto;
+import com.example.behavior_driven_development.reservation.dto.PerformanceRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 

@@ -1,12 +1,16 @@
 package com.example.behavior_driven_development.reservation.unit;
 
-import com.example.behavior_driven_development.dto.ReservationResponseDto;
-import com.example.behavior_driven_development.dto.ReservationSaveRequestDto;
-import com.example.behavior_driven_development.mapper.ReservationMapper;
-import com.example.behavior_driven_development.repository.InventoryRepository;
-import com.example.behavior_driven_development.repository.PerformanceRepository;
-import com.example.behavior_driven_development.repository.ReservationRepository;
-import com.example.behavior_driven_development.service.impl.ReservationServiceImpl;
+import com.example.behavior_driven_development.reservation.domain.Inventory;
+import com.example.behavior_driven_development.reservation.domain.Performance;
+import com.example.behavior_driven_development.reservation.domain.Reservation;
+import com.example.behavior_driven_development.reservation.domain.ReservationSave;
+import com.example.behavior_driven_development.reservation.dto.ReservationResponseDto;
+import com.example.behavior_driven_development.reservation.dto.ReservationSaveRequestDto;
+import com.example.behavior_driven_development.reservation.mapper.ReservationMapper;
+import com.example.behavior_driven_development.reservation.repository.InventoryRepository;
+import com.example.behavior_driven_development.reservation.repository.PerformanceRepository;
+import com.example.behavior_driven_development.reservation.repository.ReservationRepository;
+import com.example.behavior_driven_development.reservation.service.impl.ReservationServiceImpl;
 import com.example.behavior_driven_development.base.BaseTest;
 import com.example.behavior_driven_development.domain.*;
 import org.junit.jupiter.api.DisplayName;
@@ -62,7 +66,7 @@ public class ReservationServiceTest extends BaseTest {
         Reservation reservation = new Reservation(performanceId, performanceName, reservationDate);
         ReservationResponseDto responseDto = new ReservationResponseDto(performanceId, performanceName, reservationDate);
 
-        given(inventoryRepository.findInventory(performanceId, reservationDate)).willReturn(inventory);
+        given(inventoryRepository.findInventory(performanceId, reservationDate, 0)).willReturn(inventory);
         given(performanceRepository.findPerformance(performanceId)).willReturn(performance);
         willDoNothing().given(inventoryRepository).save(performance, inventory);
         given(reservationMapper.toDomain(customerName, reservationDate)).willReturn(reservationSave);
@@ -90,7 +94,7 @@ public class ReservationServiceTest extends BaseTest {
         ReservationSaveRequestDto requestDto = new ReservationSaveRequestDto(customerName, reservationDate);
         Inventory inventory = Inventory.builder().inventoryId(performanceId).quantity(quantity).reservationDate(reservationDate).build();
 
-        given(inventoryRepository.findInventory(performanceId, reservationDate)).willReturn(inventory);
+        given(inventoryRepository.findInventory(performanceId, reservationDate, quantity)).willReturn(inventory);
 
         // when
         Throwable throwable = catchThrowable(() -> reservationService.saveReservation(performanceId, requestDto));

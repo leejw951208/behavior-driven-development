@@ -1,14 +1,12 @@
 package com.example.behavior_driven_development.inventory.unit;
 
 import com.example.behavior_driven_development.base.BaseTest;
-import com.example.behavior_driven_development.controller.InventoryController;
-import com.example.behavior_driven_development.dto.InventorySaveRequestDto;
-import com.example.behavior_driven_development.service.InventoryService;
+import com.example.behavior_driven_development.reservation.controller.InventoryController;
+import com.example.behavior_driven_development.reservation.dto.InventorySaveRequestDto;
+import com.example.behavior_driven_development.reservation.service.InventoryService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,7 +17,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

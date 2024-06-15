@@ -1,14 +1,14 @@
 package com.example.behavior_driven_development.inventory.unit;
 
 import com.example.behavior_driven_development.base.BaseTest;
-import com.example.behavior_driven_development.domain.InventorySave;
-import com.example.behavior_driven_development.domain.Performance;
-import com.example.behavior_driven_development.mapper.InventoryMapper;
-import com.example.behavior_driven_development.mapper.PerformanceMapper;
-import com.example.behavior_driven_development.persistence.inventory.InventoryEntity;
-import com.example.behavior_driven_development.persistence.inventory.repository.InventoryEntityJpaRepository;
-import com.example.behavior_driven_development.persistence.performance.PerformanceEntity;
-import com.example.behavior_driven_development.repository.InventoryRepositoryImpl;
+import com.example.behavior_driven_development.reservation.domain.InventorySave;
+import com.example.behavior_driven_development.reservation.domain.Performance;
+import com.example.behavior_driven_development.reservation.mapper.InventoryMapper;
+import com.example.behavior_driven_development.reservation.mapper.PerformanceMapper;
+import com.example.behavior_driven_development.reservation.persistence.inventory.InventoryEntity;
+import com.example.behavior_driven_development.reservation.persistence.inventory.repository.InventoryEntityJpaRepository;
+import com.example.behavior_driven_development.reservation.persistence.performance.PerformanceEntity;
+import com.example.behavior_driven_development.reservation.repository.InventoryRepositoryImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

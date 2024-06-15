@@ -1,17 +1,16 @@
 package com.example.behavior_driven_development.inventory.unit;
 
 import com.example.behavior_driven_development.base.BaseTest;
-import com.example.behavior_driven_development.domain.InventorySave;
-import com.example.behavior_driven_development.domain.Performance;
-import com.example.behavior_driven_development.dto.InventorySaveRequestDto;
-import com.example.behavior_driven_development.mapper.InventoryMapper;
-import com.example.behavior_driven_development.repository.InventoryRepository;
-import com.example.behavior_driven_development.repository.PerformanceRepository;
-import com.example.behavior_driven_development.service.impl.InventoryServiceImpl;
+import com.example.behavior_driven_development.reservation.domain.InventorySave;
+import com.example.behavior_driven_development.reservation.domain.Performance;
+import com.example.behavior_driven_development.reservation.dto.InventorySaveRequestDto;
+import com.example.behavior_driven_development.reservation.mapper.InventoryMapper;
+import com.example.behavior_driven_development.reservation.repository.InventoryRepository;
+import com.example.behavior_driven_development.reservation.repository.PerformanceRepository;
+import com.example.behavior_driven_development.reservation.service.impl.InventoryServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;

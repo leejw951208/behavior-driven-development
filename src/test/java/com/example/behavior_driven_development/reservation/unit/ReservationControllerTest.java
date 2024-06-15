@@ -1,11 +1,10 @@
 package com.example.behavior_driven_development.reservation.unit;
 
-import com.example.behavior_driven_development.controller.ReservationController;
-import com.example.behavior_driven_development.dto.ReservationResponseDto;
-import com.example.behavior_driven_development.dto.ReservationSaveRequestDto;
-import com.example.behavior_driven_development.service.ReservationService;
+import com.example.behavior_driven_development.reservation.controller.ReservationController;
+import com.example.behavior_driven_development.reservation.dto.ReservationResponseDto;
+import com.example.behavior_driven_development.reservation.dto.ReservationSaveRequestDto;
+import com.example.behavior_driven_development.reservation.service.ReservationService;
 import com.example.behavior_driven_development.base.BaseTest;
-import com.example.behavior_driven_development.mapper.ReservationMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

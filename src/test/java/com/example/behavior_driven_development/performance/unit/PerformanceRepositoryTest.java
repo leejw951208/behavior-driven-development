@@ -1,32 +1,18 @@
 package com.example.behavior_driven_development.performance.unit;
 
 import com.example.behavior_driven_development.base.BaseTest;
-import com.example.behavior_driven_development.common.config.JpaAuditingConfig;
-import com.example.behavior_driven_development.config.TestQueryDslConfig;
-import com.example.behavior_driven_development.mapper.PerformanceMapper;
-import com.example.behavior_driven_development.persistence.performance.PerformanceEntity;
-import com.example.behavior_driven_development.persistence.performance.repository.PerformanceEntityJpaRepository;
-import com.example.behavior_driven_development.persistence.performance.repository.PerformanceEntityRepository;
-import com.example.behavior_driven_development.repository.PerformanceRepository;
-import com.example.behavior_driven_development.repository.PerformanceRepositoryImpl;
-import org.junit.jupiter.api.Assertions;
+import com.example.behavior_driven_development.reservation.mapper.PerformanceMapper;
+import com.example.behavior_driven_development.reservation.persistence.performance.PerformanceEntity;
+import com.example.behavior_driven_development.reservation.persistence.performance.repository.PerformanceEntityJpaRepository;
+import com.example.behavior_driven_development.reservation.repository.PerformanceRepositoryImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
 
 @ExtendWith(MockitoExtension.class)
 public class PerformanceRepositoryTest extends BaseTest {

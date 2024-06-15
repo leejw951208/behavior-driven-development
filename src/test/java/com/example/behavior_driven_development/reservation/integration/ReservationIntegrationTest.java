@@ -1,7 +1,7 @@
 package com.example.behavior_driven_development.reservation.integration;
 
-import com.example.behavior_driven_development.dto.ReservationSaveRequestDto;
-import com.example.behavior_driven_development.persistence.performance.PerformanceEntity;
+import com.example.behavior_driven_development.reservation.dto.ReservationSaveRequestDto;
+import com.example.behavior_driven_development.reservation.persistence.performance.PerformanceEntity;
 import com.example.behavior_driven_development.base.BaseIntegrationTest;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

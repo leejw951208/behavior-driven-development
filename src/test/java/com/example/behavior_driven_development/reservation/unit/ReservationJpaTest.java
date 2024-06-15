@@ -1,13 +1,13 @@
 package com.example.behavior_driven_development.reservation.unit;
 
 import com.example.behavior_driven_development.base.BaseUnitDatabaseTest;
-import com.example.behavior_driven_development.persistence.inventory.repository.InventoryEntityJpaRepository;
-import com.example.behavior_driven_development.persistence.performance.PerformanceEntity;
-import com.example.behavior_driven_development.persistence.performance.repository.PerformanceEntityJpaRepository;
-import com.example.behavior_driven_development.persistence.performance.repository.PerformanceEntityRepository;
-import com.example.behavior_driven_development.persistence.reservation.ReservationEntity;
-import com.example.behavior_driven_development.persistence.inventory.InventoryEntity;
-import com.example.behavior_driven_development.persistence.reservation.ReservationEntityJpaRepository;
+import com.example.behavior_driven_development.reservation.persistence.inventory.repository.InventoryEntityJpaRepository;
+import com.example.behavior_driven_development.reservation.persistence.performance.PerformanceEntity;
+import com.example.behavior_driven_development.reservation.persistence.performance.repository.PerformanceEntityJpaRepository;
+import com.example.behavior_driven_development.reservation.persistence.performance.repository.PerformanceEntityRepository;
+import com.example.behavior_driven_development.reservation.persistence.reservation.ReservationEntity;
+import com.example.behavior_driven_development.reservation.persistence.inventory.InventoryEntity;
+import com.example.behavior_driven_development.reservation.persistence.reservation.ReservationEntityJpaRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
