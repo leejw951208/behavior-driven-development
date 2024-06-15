@@ -1,6 +1,7 @@
 package com.example.behavior_driven_development.reservation.persistence.inventory.repository;
 
 import com.example.behavior_driven_development.reservation.persistence.inventory.InventoryEntity;
+import com.example.behavior_driven_development.reservation.persistence.inventory.QInventoryEntity;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.LockModeType;
 import lombok.RequiredArgsConstructor;
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static com.example.behavior_driven_development.persistence.inventory.QInventoryEntity.inventoryEntity;
-import static com.example.behavior_driven_development.persistence.performance.QPerformanceEntity.performanceEntity;
+import static com.example.behavior_driven_development.reservation.persistence.inventory.QInventoryEntity.inventoryEntity;
+import static com.example.behavior_driven_development.reservation.persistence.performance.QPerformanceEntity.performanceEntity;
 
 @Repository
 @RequiredArgsConstructor

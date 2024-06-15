@@ -18,6 +18,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
@@ -93,7 +94,7 @@ public class ReservationServiceTest extends BaseTest {
         ReservationSaveRequestDto requestDto = new ReservationSaveRequestDto(customerName, reservationDate);
         Inventory inventory = Inventory.builder().inventoryId(performanceId).quantity(quantity).reservationDate(reservationDate).build();
 
-        given(inventoryRepository.findInventory(performanceId, reservationDate, quantity)).willReturn(inventory);
+        given(inventoryRepository.findInventory(performanceId, reservationDate, quantity)).willThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 예약이 마감되었습니다."));
 
         // when
         Throwable throwable = catchThrowable(() -> reservationService.saveReservation(performanceId, requestDto));

@@ -1,13 +1,14 @@
 package com.example.behavior_driven_development.reservation.persistence.performance.repository;
 
 import com.example.behavior_driven_development.reservation.persistence.performance.PerformanceEntity;
+import com.example.behavior_driven_development.reservation.persistence.performance.QPerformanceEntity;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-import static com.example.behavior_driven_development.persistence.performance.QPerformanceEntity.performanceEntity;
+import static com.example.behavior_driven_development.reservation.persistence.performance.QPerformanceEntity.performanceEntity;
 
 @Repository
 @RequiredArgsConstructor
