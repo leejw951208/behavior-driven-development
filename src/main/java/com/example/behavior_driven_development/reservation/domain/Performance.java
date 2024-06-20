@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Performance {
-    private long performanceId;
+    private long id;
     private String performanceName;
     private LocalDate createdDate;
 }

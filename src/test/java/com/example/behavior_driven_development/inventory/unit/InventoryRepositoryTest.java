@@ -41,7 +41,7 @@ public class InventoryRepositoryTest extends BaseTest {
         // given
         long performanceId = 1L;
         String performanceName = "홍길동전";
-        Performance performance = Performance.builder().performanceId(performanceId).performanceName(performanceName).build();
+        Performance performance = Performance.builder().id(performanceId).performanceName(performanceName).build();
         PerformanceEntity performanceEntity = PerformanceEntity.builder().id(performanceId).performanceName(performanceName).build();
 
         int quantity1 = 1;

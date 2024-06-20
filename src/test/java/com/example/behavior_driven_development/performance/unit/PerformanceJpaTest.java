@@ -13,6 +13,8 @@ public class PerformanceJpaTest extends BaseUnitDatabaseTest {
     @Autowired
     private PerformanceEntityJpaRepository performanceEntityJpaRepository;
 
+    private static PerformanceEntity savedPerformanceEntity;
+
     @Test
     @DisplayName("JPA 단위 테스트: 공연 정보 저장")
     public void savePerformance() {
@@ -21,7 +23,7 @@ public class PerformanceJpaTest extends BaseUnitDatabaseTest {
         PerformanceEntity createdPerformanceEntity = PerformanceEntity.builder().performanceName(performanceName).build();
 
         // when
-        PerformanceEntity savedPerformanceEntity = performanceEntityJpaRepository.save(createdPerformanceEntity);
+        savedPerformanceEntity = performanceEntityJpaRepository.save(createdPerformanceEntity);
 
         // then
         assertNotNull(savedPerformanceEntity);

@@ -45,7 +45,7 @@ public class ReservationRepositoryTest extends BaseTest {
         long performanceId = 1L;
         String performanceName = "홍길동전";
         LocalDate createdDate = LocalDate.now();
-        Performance performance = Performance.builder().performanceId(performanceId).performanceName(performanceName).createdDate(createdDate).build();
+        Performance performance = Performance.builder().id(performanceId).performanceName(performanceName).createdDate(createdDate).build();
 
         String customerName = "고길동";
         LocalDate reservationDate = LocalDate.now();
